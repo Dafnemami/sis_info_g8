@@ -38,7 +38,7 @@ CREATE TABLE organismos(
 
 
 CREATE TABLE facultadesfuncionesatribuciones(
-    organismo_codigo CHAR(5) PRIMARY KEY,
+    organismo_codigo CHAR(5),
     fecha_publicacion_ta DATE,
     unidades VARCHAR(300),
     facultades VARCHAR(2000),
@@ -47,7 +47,8 @@ CREATE TABLE facultadesfuncionesatribuciones(
     enlace_publicacion VARCHAR(200), 
     fecha_modificacion DATE,
     enlace_modificacion VARCHAR(200),
-    activado CHAR(2)
+    activado CHAR(2), 
+    PRIMARY KEY(organismo_codigo)
 );
 
 
@@ -57,10 +58,10 @@ CREATE TABLE pasivomunicipio(
     anyo INT,
     mes VARCHAR(30),
     fecha DATE,
-    descripción(60),
+    descripcion VARCHAR(60),
     activado CHAR(2),
     PRIMARY KEY(organismo_codigo),
-    FOREIGN KEY organismo_codigo REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
+    FOREIGN KEY (organismo_codigo) REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
 );
 
 
@@ -75,7 +76,7 @@ CREATE TABLE tramitesanteconsejo(
     enlace_infocomplementaria VARCHAR(200),
     activado CHAR(2),
     PRIMARY KEY(organismo_codigo),
-    FOREIGN KEY organismo_codigo REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
+    FOREIGN KEY (organismo_codigo) REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
 );
 
 
@@ -87,7 +88,7 @@ CREATE TABLE licitacion(
     denominacion_acto VARCHAR(40),
     activado CHAR(2),
     PRIMARY KEY(numero_acto, organismo_codigo),
-    FOREIGN KEY organismo_codigo REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
+    FOREIGN KEY (organismo_codigo) REFERENCES facultadesfuncionesatribuciones(organismo_codigo)
 );
 
 
@@ -100,7 +101,7 @@ CREATE TABLE organismo360(
     url_sai VARCHAR(200),
     obligadorecibir_sai CHAR(2),
     tiene_ta CHAR(2),
-    PRIMARY KEY(idOrg, Codigo_org, Codigo_padre)
-    FOREIGN KEY Codigo_org REFERENCES organismos,
-    FOREIGN KEY Codigo_padre REFERENCES organismospadre
+    PRIMARY KEY(idOrg, Codigo_org, Codigo_padre),
+    FOREIGN KEY (Codigo_org) REFERENCES organismos(Codigo_org),
+    FOREIGN KEY (Codigo_padre) REFERENCES organismospadre(Codigo_padre)
 );
